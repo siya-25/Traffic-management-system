@@ -1,0 +1,66 @@
+# smart_traffic_system — default_config.yaml
+# All values can be overridden via CLI arguments.
+
+model:
+  path: "yolov8n.pt"            # .pt for PyTorch, .engine for TensorRT
+  trt_engine_dir: "models/engines"
+  trt_precision: "fp16"         # fp32 | fp16 | int8
+  trt_workspace_gb: 4
+  imgsz: 640
+  conf_threshold: 0.40
+  iou_threshold: 0.45
+  device: "cuda"
+  vehicle_classes: [2, 3, 5, 7] # COCO: car, motorbike, bus, truck
+
+signal:
+  min_green: 10.0               # seconds
+  max_green: 60.0
+  yellow_time: 3.0
+  red_time: 5.0
+
+congestion:
+  ema_alpha: 0.15
+  free_flow_max: 3
+  moderate_max: 8
+  congested_max: 15
+
+video:
+  skip_frames: 0
+  resize_width: 0               # 0 = keep original
+  resize_height: 0
+  output_fps: 25.0
+
+# Define one entry per approach / lane.
+# Polygon coordinates are normalised [0, 1] relative to frame dimensions.
+zones:
+  - name: "North"
+    signal_id: "S_NORTH"
+    polygon:
+      - [0.0, 0.0]
+      - [0.5, 0.0]
+      - [0.5, 0.5]
+      - [0.0, 0.5]
+
+  - name: "South"
+    signal_id: "S_SOUTH"
+    polygon:
+      - [0.5, 0.0]
+      - [1.0, 0.0]
+      - [1.0, 0.5]
+      - [0.5, 0.5]
+
+  - name: "East"
+    signal_id: "S_EAST"
+    polygon:
+      - [0.0, 0.5]
+      - [0.5, 0.5]
+      - [0.5, 1.0]
+      - [0.0, 1.0]
+
+  - name: "West"
+    signal_id: "S_WEST"
+    polygon:
+      - [0.5, 0.5]
+      - [1.0, 0.5]
+      - [1.0, 1.0]
+      - [0.5, 1.0]
