@@ -43,12 +43,6 @@ OpenCV
 Ultralytics YOLOv8
 TensorRT (optional, for GPU acceleration)
 
-Installation
-
-bash# Clone the repository
-git clone https://github.com/siya-25/Traffic-management-system.git
-cd Traffic-management-system
-
 # Install dependencies
 pip install ultralytics opencv-python numpy
 
